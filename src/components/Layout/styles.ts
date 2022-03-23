@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Layout = styled.main`
-    min-height: 768px;
     display: grid;
     grid-template-areas: "sidebar body";
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 20rem 1fr;
+    min-height: 100vh;
 `
 
 export const Body = styled.div`

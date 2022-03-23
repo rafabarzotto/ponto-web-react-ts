@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 const Container = styled.nav`
     height: 50px;
-    width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding: 10px 20px;
+    padding: 10px;
 `;
 
 const ShortcutsMenu = styled.div`
@@ -13,7 +12,7 @@ const ShortcutsMenu = styled.div`
     justify-content: space-between;
     width: 75px;
     align-items: center;
-    margin-right: 60px;
+    margin-right: 30px;
 `;
 
 export { Container, ShortcutsMenu };
