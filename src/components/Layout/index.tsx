@@ -5,11 +5,14 @@ import * as S from "./styles";
 function Layout({ children }) {
     return (
         <S.Layout>
-            <Sidebar />
-            <S.Body>
+            <S.Header>
                 <Navbar />
-                {children}
-            </S.Body>
+            </S.Header>
+            <S.Aside>
+                <Sidebar />
+            </S.Aside>
+            <S.Main>{children}</S.Main>
+            <S.Footer />
         </S.Layout>
     )
 }

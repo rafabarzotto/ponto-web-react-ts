@@ -1,17 +1,8 @@
 import React from 'react';
-import { FaHome, FaRegClock, FaRegFileAlt } from "react-icons/fa";
+import { FaHome, FaRegClock, FaRegFileAlt, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate, NavLink } from 'react-router-dom';
 
-import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
-} from 'cdbreact';
-
-import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg } from './styles';
+import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body } from './styles';
 import Logo from "../../assets/logo.png";
 
 
@@ -41,6 +32,7 @@ function Sidebar() {
     return (
         <>
             <Container>
+            <Body>
                 <TopSection>
                     <TopSectionLogo>
                         <TopSectionLogoImg src={Logo}></TopSectionLogoImg>
@@ -61,7 +53,11 @@ function Sidebar() {
                         );
                     })}
                 </List>
-
+                </Body>
+                <ButtonLogout>
+                    <FaSignOutAlt size={20} />
+                    <ButtonText>Sair</ButtonText>
+                </ButtonLogout>
             </Container>
         </>
     );

@@ -5,6 +5,10 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 48px;
+    
+    @media (max-width: 768px) {
+        margin-top: 30px;
+    }     
 `;
 
 const ContainerTime = styled.div`
@@ -22,6 +26,12 @@ const Time = styled.div`
     margin-left: 4px;
     border-radius: 8px;
     background-color: #1D254E;
+
+    @media (max-width: 768px) {
+        width: 50px;
+        height: 60px;
+        margin-left: 4px;
+    }     
 `;
 
 const Day = styled.div`
@@ -34,26 +44,42 @@ const Day = styled.div`
     height: 124px;
     border-radius: 8px;
     background-color: #F98B47;
+
+    @media (max-width: 768px) {
+        width: 60px;
+        height: 60px;
+    }     
 `;
 
 const TimeText = styled.text`
     color: #FFFFFF;
     font-size: 48px;
     font-weight: bold;
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }      
 `;
 
 const WeekText = styled.text`
     color: #FFFFFF;
     font-size: 32px;
     font-weight: bold;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }    
 `;
 
 const MonthText = styled.text`
     margin-top: 8px;
-
     color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }    
 `;
 
 const SaveButton = styled.button`
@@ -78,4 +104,5 @@ const TextButton = styled.text`
 `;
 
 
-export {Container, ContainerTime, Day, Time, WeekText, MonthText, TimeText, SaveButton, TextButton};
+export {Container, ContainerTime, Day, Time, WeekText, MonthText, TimeText, 
+    SaveButton, TextButton};
