@@ -9,5 +9,4 @@ export const Layout = styled.main`
 
 export const Body = styled.div`
     grid-area: body;
-    margin-left: 300px;
 `

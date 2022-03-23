@@ -5,7 +5,7 @@ const Container = styled.div`
     height: 100%;
     margin: 0px;
     background-color: #1D254E;
-    position: fixed;
+    // position: fixed;
     box-sizing: border-box;
     transition: width .2s ease-in;    
 `;
