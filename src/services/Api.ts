@@ -12,6 +12,8 @@ interface TokenData {
 const authBaseURL = 'http://127.0.0.1:3000';
 const clockBaseURL = 'http://127.0.0.1:4000';
 
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 const authApi = axios.create({
   baseURL: authBaseURL
 });
@@ -20,7 +22,6 @@ const clockApi = axios.create({
   baseURL: clockBaseURL
 });
 
-axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 clockApi.interceptors.request.use(
   async req => {
@@ -29,8 +30,7 @@ clockApi.interceptors.request.use(
     console.log(authToken);
 
     if (!authToken) {
-      console.log(req);
-      return req;
+      return req.cancelToken;
     }
 
     req.headers.Authorization = `Bearer ${authToken}`;
@@ -44,9 +44,8 @@ clockApi.interceptors.request.use(
       });
 
       if (response.data.status == 401) {
-        //LOGOUT
         console.log('logot');
-        return req;
+        return req.cancelToken;
       }
 
       localStorage.setItem('sanconAuthToken', response.data.token);
@@ -58,6 +57,8 @@ clockApi.interceptors.request.use(
 
     return req;
 
+  }, error => {
+    Promise.reject(error)
   }
 );
 

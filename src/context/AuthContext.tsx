@@ -44,7 +44,6 @@ function AuthProvider({ children }: any) {
     const [userData, setUserData] = useState<UserData>();
     const [tokenData, setTokenData] = useState<TokenData>();
 
-
     useEffect(() => {
         async function loadStorageData() {
             const storageToken = localStorage.getItem('sanconAuthToken');
@@ -71,9 +70,9 @@ function AuthProvider({ children }: any) {
             const response = await api.authApi.post('/empresa1/api/auth/login', data);
 
             if (response.status === 201) {
-                localStorage.setItem('sanconAuthToken', response.data.token);
                 setTokenData(jwtDecode(response.data.token));
                 setToken(response.data.token);
+                localStorage.setItem('sanconAuthToken', response.data.token);                
             } else {
                 await logout();
             }
@@ -85,17 +84,21 @@ function AuthProvider({ children }: any) {
 
     async function getEmployee() {
 
-        let dataToken: TokenData = jwtDecode(String(localStorage.getItem('sanconAuthToken')));
+        if (localStorage.getItem('sanconAuthToken')) {
+            let dataToken: TokenData = jwtDecode(String(localStorage.getItem('sanconAuthToken')));
 
-        try {
-            const response = await api.clockApi.get('/empresa1/api/employees/userId/' + dataToken?.sub);
-            if (response.status === 200) {
-                localStorage.setItem('sanconClockUser', JSON.stringify(response.data));
-                setUserData(response.data);
-            } else {
+            try {
+                const response = await api.clockApi.get('/empresa1/api/employees/userId/' + dataToken?.sub);
+                if (response.status === 200) {
+                    localStorage.setItem('sanconClockUser', JSON.stringify(response.data));
+                    setUserData(response.data);
+                } else {
+                    await logout();
+                }
+            } catch (e) {
                 await logout();
             }
-        } catch (e) {
+        } else {
             await logout();
         }
 

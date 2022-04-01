@@ -1,7 +1,6 @@
 import React, { useState, useEffect, FC } from 'react';
 import { FaRegSave } from "react-icons/fa";
-import useAxios from '../../hooks/useAxios';
-// import api from '../../services/Api';
+import api from '../../services/Api';
 
 import {
     Container, ContainerTime, Day,
@@ -11,8 +10,6 @@ import {
 
 
 const Clock: FC<any> = (): JSX.Element => {
-
-    const clockApi = useAxios();
 
     const [latitude, setLatitude] = useState(0);
     const [longitude, setlongitude] = useState(0);
@@ -50,7 +47,7 @@ const Clock: FC<any> = (): JSX.Element => {
 
     async function postPunch() {
         try {
-            await clockApi.post('/empresa1/api/clock/punch', punch);
+            await api.clockApi.post('/empresa1/api/clock/punch', punch);
         } catch (err) {
             console.log(err);
         }
