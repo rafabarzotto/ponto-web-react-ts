@@ -1,7 +1,99 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
-const Api = axios.create({
-  baseURL: 'http://127.0.0.1:4000',
+interface TokenData {
+  sub: number,
+  username: string,
+  roles: string[],
+  iat: number,
+  exp: number,
+};
+
+const authBaseURL = 'http://127.0.0.1:3000';
+const clockBaseURL = 'http://127.0.0.1:4000';
+
+const authApi = axios.create({
+  baseURL: authBaseURL
 });
 
-export default Api;
+const clockApi = axios.create({
+  baseURL: clockBaseURL
+});
+
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+clockApi.interceptors.request.use(
+  async req => {
+    let authToken: string | null = localStorage.getItem('sanconAuthToken') ? localStorage.getItem('sanconAuthToken') : null;
+
+    console.log(authToken);
+
+    if (!authToken) {
+      console.log(req);
+      return req;
+    }
+
+    req.headers.Authorization = `Bearer ${authToken}`;
+
+    const user: TokenData = jwtDecode(String(authToken));
+
+    if (user.iat > user.exp) {
+
+      const response = await axios.put(`${authBaseURL}/empresa1/api/token/refresh`, {
+        oldToken: authToken
+      });
+
+      if (response.data.status == 401) {
+        //LOGOUT
+        console.log('logot');
+        return req;
+      }
+
+      localStorage.setItem('sanconAuthToken', response.data.token);
+      req.headers.Authorization = `Bearer ${response.data.token}`;
+
+      return req;
+    };
+
+
+    return req;
+
+  }
+);
+
+export default { authApi, clockApi };
+
+
+// const clockApi = () => {
+//   const { token, setToken } = useContext(AuthContext);
+
+//   console.log(token);
+
+//   const axiosInstance = axios.create({
+//     baseURL: clockBaseURL,
+//     headers: { Authorization: `Bearer ${token}` }
+//   });
+
+
+//   axiosInstance.interceptors.request.use(async req => {
+
+//     const user: TokenData = jwtDecode(String(token));
+
+//     if (user.iat < user.exp) {
+//       return req;
+//     };
+
+//     const response = await axios.put(`${authBaseURL}/empresa1/api/token/refresh`, {
+//       oldToken: token
+//     });
+
+//     localStorage.setItem('sanconAuthToken', response.data.token);
+
+//     setToken(response.data.token);
+
+//     req.headers.Authorization = `Bearer ${response.data.token}`
+//     return req;
+//   });
+
+//   return axiosInstance
+// }

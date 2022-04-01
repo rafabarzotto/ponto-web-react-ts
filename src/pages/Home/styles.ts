@@ -11,7 +11,7 @@ const Container = styled.div`
 const ContainerTimer = styled.div`
 `;
 
-const Title = styled.text`
+const Title = styled.div`
     font-size: 28px;
     color: #0B3549;
 
@@ -22,7 +22,7 @@ const Title = styled.text`
     } 
 `;
 
-const TitleName = styled.text`
+const TitleName = styled.div`
     font-size: 32px;
     font-weight: bold;
 
@@ -33,7 +33,7 @@ const TitleName = styled.text`
     }
 `;
 
-const SpanText = styled.text`
+const SpanText = styled.div`
     font-size: 16px;
     color: #8D91A5;
 
@@ -52,7 +52,7 @@ const ContainerPunches = styled.div`
     border-radius: 32px;
 `;
 
-const PunchesTitle = styled.text`
+const PunchesTitle = styled.div`
     padding: 30px;
     width: 179px;
     height: 23px;

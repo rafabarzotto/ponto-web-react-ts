@@ -51,7 +51,7 @@ const Day = styled.div`
     }     
 `;
 
-const TimeText = styled.text`
+const TimeText = styled.div`
     color: #FFFFFF;
     font-size: 48px;
     font-weight: bold;
@@ -61,7 +61,7 @@ const TimeText = styled.text`
     }      
 `;
 
-const WeekText = styled.text`
+const WeekText = styled.div`
     color: #FFFFFF;
     font-size: 32px;
     font-weight: bold;
@@ -71,7 +71,7 @@ const WeekText = styled.text`
     }    
 `;
 
-const MonthText = styled.text`
+const MonthText = styled.div`
     margin-top: 8px;
     color: #FFFFFF;
     font-size: 16px;
@@ -96,7 +96,7 @@ const SaveButton = styled.button`
     margin-top: 40px;
 `;
 
-const TextButton = styled.text`
+const TextButton = styled.div`
     font-size: 14px;
     font-weight: bold;
     color: #FFFFFF;

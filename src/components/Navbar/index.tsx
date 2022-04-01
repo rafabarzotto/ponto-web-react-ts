@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { } from 'react';
 import { FaRegUser, FaRegBell } from "react-icons/fa";
-
 import { Container, ShortcutsMenu, Header } from './styles';
 
 function Navbar() {
+
     return (
         <Container>
             <Header>

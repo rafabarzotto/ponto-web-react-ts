@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { FaRegSave } from "react-icons/fa";
-import Api from '../../services/Api';
+import useAxios from '../../hooks/useAxios';
+// import api from '../../services/Api';
 
 import {
     Container, ContainerTime, Day,
@@ -8,7 +9,10 @@ import {
     SaveButton, TextButton
 } from './styles';
 
-function Clock() {
+
+const Clock: FC<any> = (): JSX.Element => {
+
+    const clockApi = useAxios();
 
     const [latitude, setLatitude] = useState(0);
     const [longitude, setlongitude] = useState(0);
@@ -21,15 +25,13 @@ function Clock() {
     const [dayWeek, setDayWeek] = useState('');
     const [dayMonth, setDayMonth] = useState('');
 
-    const days = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
-    const months = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
     const punch = {
         dateTime: new Date(),
-        ipAddress: "",
+        ipAddress: "192.168.0.1",
         deviceInfo: navigator.userAgent,
-        latitude: latitude,
-        longitude: longitude,
+        latitude: 0,
+        longitude: 0,
     }
 
     // Função para formatar 1 em 01
@@ -38,27 +40,29 @@ function Clock() {
     }
 
     function getInformationsFromBrowser() {
-
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(function (position) {
-                    setLatitude(position.coords.latitude);
-                    setlongitude(position.coords.longitude);
-                });
-            }
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function (position) {
+                setLatitude(position.coords.latitude);
+                setlongitude(position.coords.longitude);
+            });
         }
+    }
 
-        async function getPunch() {
-            try {
-                await Api.post('/empresa1/api/clock/punch', punch);
-            } catch (err) {
-                console.log(err);
-            }
+    async function postPunch() {
+        try {
+            await clockApi.post('/empresa1/api/clock/punch', punch);
+        } catch (err) {
+            console.log(err);
         }
+    }
 
-        getInformationsFromBrowser();
+    useEffect(() => {
+
+        const days = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
+        const months = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
         // Execução a cada segundo
-        setInterval(() => {
+        const interval = setInterval(() => {
             const now = new Date();
 
             let day = days[now.getDay()];
@@ -71,32 +75,40 @@ function Clock() {
             setSeconds(zeroFill(now.getSeconds()));
         }, 1000);
 
+        getInformationsFromBrowser();
 
-        return (
-            <>
-                <Container>
-                    <ContainerTime>
-                        <Day>
-                            <WeekText>{dayWeek}</WeekText>
-                            <MonthText>{dayMonth}</MonthText>
-                        </Day>
-                        <Time>
-                            <TimeText>{hours}</TimeText>
-                        </Time>
-                        <Time>
-                            <TimeText>{minutes}</TimeText>
-                        </Time>
-                        <Time>
-                            <TimeText>{seconds}</TimeText>
-                        </Time>
-                    </ContainerTime>
-                    <SaveButton onClick={getPunch}>
-                        <TextButton>Registrar</TextButton>
-                        <FaRegSave color='#ffffff' size={20}></FaRegSave>
-                    </SaveButton>
-                </Container>
-            </>
-        );
-    }
+        return () => {
+            clearInterval(interval);
+        };
 
-    export default Clock;
+    }, [])
+
+
+    return (
+        <>
+            <Container>
+                <ContainerTime>
+                    <Day>
+                        <WeekText>{dayWeek}</WeekText>
+                        <MonthText>{dayMonth}</MonthText>
+                    </Day>
+                    <Time>
+                        <TimeText>{hours}</TimeText>
+                    </Time>
+                    <Time>
+                        <TimeText>{minutes}</TimeText>
+                    </Time>
+                    <Time>
+                        <TimeText>{seconds}</TimeText>
+                    </Time>
+                </ContainerTime>
+                <SaveButton onClick={postPunch}>
+                    <TextButton>Registrar</TextButton>
+                    <FaRegSave color='#ffffff' size={20}></FaRegSave>
+                </SaveButton>
+            </Container>
+        </>
+    );
+}
+
+export default Clock;

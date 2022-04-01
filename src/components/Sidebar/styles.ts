@@ -110,7 +110,7 @@ const ButtonLogout = styled.button`
     margin-bottom: 200px;
 `;
 
-const ButtonText = styled.text`
+const ButtonText = styled.div`
     color: #FFFFFF;
     font-size: 14px;
     font-weight: bold;

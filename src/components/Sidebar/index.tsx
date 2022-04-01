@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaHome, FaRegClock, FaRegFileAlt, FaSignOutAlt } from "react-icons/fa";
-import { useNavigate, NavLink } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body } from './styles';
 import Logo from "../../assets/logo.png";
 
+const sidebarDataUser = [
+    {
+        title: "Início",
+        icon: <FaHome />,
+        link: "/"
+    },
+    {
+        title: "Histórico",
+        icon: <FaRegClock />,
+        link: "/history"
+    }
+]
 
-
-const sidebarData = [
+const sidebarDataAdmin = [
     {
         title: "Início",
         icon: <FaHome />,
@@ -27,34 +38,48 @@ const sidebarData = [
 
 
 function Sidebar() {
+
+    const { logout, tokenData } = useContext(AuthContext);
+    const [sidebar, setSidebar] = useState(sidebarDataUser);
+
     let navigate = useNavigate();
+
+    function handleLogout() {
+        logout();
+    }
+
+    useEffect(() => {
+        if (tokenData && tokenData?.roles.includes('ADMIN_CLOCK')) {
+            setSidebar(sidebarDataAdmin);
+        }
+    });
 
     return (
         <>
             <Container>
-            <Body>
-                <TopSection>
-                    <TopSectionLogo>
-                        <TopSectionLogoImg src={Logo}></TopSectionLogoImg>
-                    </TopSectionLogo>
-                </TopSection>
+                <Body>
+                    <TopSection>
+                        <TopSectionLogo>
+                            <TopSectionLogoImg src={Logo}></TopSectionLogoImg>
+                        </TopSectionLogo>
+                    </TopSection>
 
-                <List className='SidebarList'>
-                    {sidebarData.map((val, key) => {
-                        return (
-                            <Row
-                                key={key}
-                                onClick={() => {
-                                    navigate(val.link)
-                                    console.log(val.link);
-                                }}>
-                                <Icon>{val.icon}</Icon><Title>{val.title}</Title>
-                            </Row>
-                        );
-                    })}
-                </List>
+                    <List className='SidebarList'>
+                        {sidebar.map((val, key) => {
+                            return (
+                                <Row
+                                    key={key}
+                                    onClick={() => {
+                                        navigate(val.link)
+                                        console.log(val.link);
+                                    }}>
+                                    <Icon>{val.icon}</Icon><Title>{val.title}</Title>
+                                </Row>
+                            );
+                        })}
+                    </List>
                 </Body>
-                <ButtonLogout>
+                <ButtonLogout onClick={handleLogout}>
                     <FaSignOutAlt size={20} />
                     <ButtonText>Sair</ButtonText>
                 </ButtonLogout>
