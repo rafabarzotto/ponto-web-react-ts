@@ -9,7 +9,7 @@ const Container = styled.div`
     width: 250px;
     height: 100%;
     margin: 0px;
-    background-color: #1D254E;
+    background-color: #033549;
     box-sizing: border-box;
     transition: width .2s ease-in;  
 
@@ -48,7 +48,7 @@ const Row = styled.li`
 
     &:hover {
         cursor: pointer;
-        background-color: #8D91A5;
+        background-color: #f0821a;
     }
 `;
 
@@ -68,8 +68,9 @@ const Title = styled.div`
 
 const Image = styled.image`
     width: 56px;
-    height: 56px;
+    height: 56px;        
 `;
+
 
 const TopSection = styled.div`
     margin-top: 40px;
@@ -80,14 +81,32 @@ const TopSection = styled.div`
 `;
 
 const TopSectionLogo = styled.div`
-    width: 40px;
-    height: 40px;
     overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;     
 `;
 
 const TopSectionLogoImg = styled.img`
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 80%;   
+    @media (max-width: 768px) {
+        display: none;
+        transition: all 0.3s ease-in-out;
+    }     
+`;
+
+const TopSectionLogoMobileImg = styled.img`
+    @media (min-width: 768px) {
+        display: none;
+    }
+  
+    @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        max-width: 100%;
+        max-height: 100%;        
+        transition: all 0.3s ease-in-out;
+    }      
 `;
 
 const ButtonLogout = styled.button`
@@ -97,7 +116,7 @@ const ButtonLogout = styled.button`
     flex-direction: column;
     
     
-    background-color: #1D254E;
+    background-color: #033549;
     border-radius: 4px;
     border-width: 1px;
     border-color: #ffffff;
@@ -142,4 +161,4 @@ const ButtonText = styled.div`
 //     max-height: 100%;
 // }
 
-export { Container, List, Row, Icon, Title, Image, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body };
+export { Container, List, Row, Icon, Title, Image, TopSectionLogoMobileImg, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body };

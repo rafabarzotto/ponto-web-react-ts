@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useEffect, useState } from 'react';
 import LoadingComponent from '../components/Loading';
+import { toast } from 'react-toastify'
 import api from '../services/Api';
 
 interface TokenData {
@@ -22,7 +23,6 @@ interface UserData {
 interface AuthContextData {
     authenticated: boolean;
     token: string | null;
-    setToken: string | null;
     tokenData: TokenData;
     userData: UserData;
     login(data: LoginFormData): Promise<void>;
@@ -41,15 +41,15 @@ function AuthProvider({ children }: any) {
 
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState('');
-    const [userData, setUserData] = useState<UserData>();
-    const [tokenData, setTokenData] = useState<TokenData>();
+    const [userData, setUserData] = useState<UserData>({} as UserData);
+    const [tokenData, setTokenData] = useState<TokenData>({} as TokenData);
 
     useEffect(() => {
         async function loadStorageData() {
             const storageToken = localStorage.getItem('sanconAuthToken');
             const storageUser = localStorage.getItem('sanconClockUser');
 
-            // await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 2500));
 
             if (storageToken && storageUser) {
                 setToken(storageToken);
@@ -65,33 +65,34 @@ function AuthProvider({ children }: any) {
     }, []);
 
     async function login(data: LoginFormData) {
-
+        setLoading(true);
         try {
             const response = await api.authApi.post('/empresa1/api/auth/login', data);
 
             if (response.status === 201) {
+                toast.success("Usuário Logado!");
                 setTokenData(jwtDecode(response.data.token));
                 setToken(response.data.token);
-                localStorage.setItem('sanconAuthToken', response.data.token);                
-            } else {
-                await logout();
+                localStorage.setItem('sanconAuthToken', response.data.token);
             }
         } catch (e) {
             await logout();
         }
-
+        setLoading(false);
     }
 
     async function getEmployee() {
 
-        if (localStorage.getItem('sanconAuthToken')) {
-            let dataToken: TokenData = jwtDecode(String(localStorage.getItem('sanconAuthToken')));
+        if (token && localStorage.getItem('sanconAuthToken')) {
+            let dataToken: TokenData = jwtDecode(token);
 
             try {
                 const response = await api.clockApi.get('/empresa1/api/employees/userId/' + dataToken?.sub);
                 if (response.status === 200) {
                     localStorage.setItem('sanconClockUser', JSON.stringify(response.data));
                     setUserData(response.data);
+                    setToken(String(localStorage.getItem('sanconAuthToken')));
+                    setTokenData(jwtDecode(String(localStorage.getItem('sanconAuthToken'))));
                 } else {
                     await logout();
                 }
@@ -105,6 +106,7 @@ function AuthProvider({ children }: any) {
     }
 
     async function logout() {
+        toast.success("Usuário deslogado!");
         setToken('');
         setUserData({} as UserData);
         setTokenData({} as TokenData);
@@ -113,11 +115,11 @@ function AuthProvider({ children }: any) {
     }
 
     if (loading) {
-        return (<LoadingComponent></LoadingComponent>);
+        return (<LoadingComponent value = 'Carregando...'></LoadingComponent>);
     }
 
     return (
-        <AuthContext.Provider value={{ login, logout, authenticated: Boolean(token), token, setToken, tokenData, getEmployee, userData }}>
+        <AuthContext.Provider value={{ authenticated: Boolean(token), token, tokenData, userData, login, logout, getEmployee }}>
             {children}
         </AuthContext.Provider>
     );

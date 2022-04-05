@@ -1,19 +1,28 @@
 import styled from 'styled-components';
 
-const LoaderContainer = styled.div`
+const Overlay = styled.div`
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #F8F8F8AD;
-`
+    & > div:not(:last-child) {
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        position: absolute;
+        transform: translate(-50%, -50%);
+    }    
+`;
 
-const Loader = styled.div`
-    left: 50%;
-    top: 30%;
-    z-index: 1000;
+const LoadingText = styled.div`
     position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -60%);
 `
 
-export { LoaderContainer, Loader };
+export { Overlay, LoadingText };

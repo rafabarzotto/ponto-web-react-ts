@@ -16,7 +16,7 @@ const ContainerForm = styled.div`
 `;
 
 const Text = styled.div`
-    color: #1D254E;
+    color: #033549;
     font-size: 36px;
     font-weight: bold;
 `;
@@ -45,7 +45,7 @@ const Input = styled.input`
     }
 
     :focus{
-        color: #1D254E;
+        color: #033549;
     }
 `;
 
@@ -56,11 +56,17 @@ const Button = styled.button`
     border-radius: 10px;
     border-width: 0;
 
-    background-color: #F98B47;
+    background-color: #f0821a;
     color: #FFFFFF;
     
     font-size: 24px;
     font-weight: bold;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #033549;
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }     
 `;
 
 
@@ -74,7 +80,7 @@ const ContainerWelcome = styled.div`
     width: 800px;
     height: 100vh;
     
-    background-color: #1D254E;
+    background-color: #033549;
 `;
 
 

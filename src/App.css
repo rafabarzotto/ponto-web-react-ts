@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 .App {
-  font-family: 'Roboto';
+  font-family: 'Inter', sans-serif;
 }

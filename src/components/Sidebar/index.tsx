@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaHome, FaRegClock, FaRegFileAlt, FaSignOutAlt } from "react-icons/fa";
+import { BsHouseDoor, BsClock, BsCalendar4Event, BsFileEarmarkFont } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body } from './styles';
-import Logo from "../../assets/logo.png";
+import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body, TopSectionLogoMobileImg } from './styles';
+import SanconLogo from "../../assets/sancon-logo-claro.svg";
+import SanconLogoMobile from "../../assets/logo.png";
 
 const sidebarDataUser = [
     {
         title: "Início",
-        icon: <FaHome />,
+        icon: <BsHouseDoor />,
         link: "/"
     },
     {
         title: "Histórico",
-        icon: <FaRegClock />,
+        icon: <BsCalendar4Event />,
         link: "/history"
     }
 ]
@@ -21,17 +23,17 @@ const sidebarDataUser = [
 const sidebarDataAdmin = [
     {
         title: "Início",
-        icon: <FaHome />,
+        icon: <BsHouseDoor />,
         link: "/"
     },
     {
         title: "Histórico",
-        icon: <FaRegClock />,
+        icon: <BsCalendar4Event />,
         link: "/history"
     },
     {
         title: "Exportar",
-        icon: <FaRegFileAlt />,
+        icon: <BsFileEarmarkFont />,
         link: "/export"
     },
 ]
@@ -60,7 +62,8 @@ function Sidebar() {
                 <Body>
                     <TopSection>
                         <TopSectionLogo>
-                            <TopSectionLogoImg src={Logo}></TopSectionLogoImg>
+                            <TopSectionLogoImg src={SanconLogo}></TopSectionLogoImg>
+                            <TopSectionLogoMobileImg src={SanconLogoMobile}></TopSectionLogoMobileImg>
                         </TopSectionLogo>
                     </TopSection>
 

@@ -15,7 +15,6 @@ const Title = styled.div`
     font-size: 28px;
     color: #0B3549;
 
-    font-family: 'Roboto';  
     
     @media (max-width: 768px) {
         font-size: 20px;
@@ -26,8 +25,6 @@ const TitleName = styled.div`
     font-size: 32px;
     font-weight: bold;
 
-    font-family: 'Roboto', sans-serif;
-
     @media (max-width: 768px) {
         font-size: 24px;
     }
@@ -36,8 +33,6 @@ const TitleName = styled.div`
 const SpanText = styled.div`
     font-size: 16px;
     color: #8D91A5;
-
-    font-family: 'Roboto';
 
     @media (max-width: 768px) {
         font-size: 12px;
@@ -56,7 +51,6 @@ const PunchesTitle = styled.div`
     padding: 30px;
     width: 179px;
     height: 23px;
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;

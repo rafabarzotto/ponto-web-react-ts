@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { toast } from 'react-toastify'
 
 interface TokenData {
   sub: number,
@@ -19,7 +20,17 @@ const authApi = axios.create({
 });
 
 const clockApi = axios.create({
-  baseURL: clockBaseURL
+  baseURL: clockBaseURL,
+  headers: { Authorization: `Bearer ` }
+});
+
+authApi.interceptors.response.use(response => {
+  return response;
+}, error => {
+  if (error.response.status === 401) {
+    toast.error(error.response.data.message);
+  }
+  return error;
 });
 
 
@@ -33,7 +44,9 @@ clockApi.interceptors.request.use(
       return req.cancelToken;
     }
 
-    req.headers.Authorization = `Bearer ${authToken}`;
+    if (req.headers) {
+      req.headers.Authorization = `Bearer ${authToken}`;
+    }
 
     const user: TokenData = jwtDecode(String(authToken));
 
@@ -44,12 +57,14 @@ clockApi.interceptors.request.use(
       });
 
       if (response.data.status == 401) {
-        console.log('logot');
         return req.cancelToken;
       }
 
       localStorage.setItem('sanconAuthToken', response.data.token);
-      req.headers.Authorization = `Bearer ${response.data.token}`;
+
+      if (req.headers) {
+        req.headers.Authorization = `Bearer ${response.data.token}`;
+      }
 
       return req;
     };

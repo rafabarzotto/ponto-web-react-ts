@@ -25,7 +25,7 @@ const Time = styled.div`
     height: 124px;
     margin-left: 4px;
     border-radius: 8px;
-    background-color: #1D254E;
+    background-color: #033549;
 
     @media (max-width: 768px) {
         width: 50px;
@@ -43,7 +43,7 @@ const Day = styled.div`
     width: 100px;
     height: 124px;
     border-radius: 8px;
-    background-color: #F98B47;
+    background-color: #f0821a;
 
     @media (max-width: 768px) {
         width: 60px;
@@ -86,14 +86,18 @@ const SaveButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 124px;
     height: 60px;
     border-width: 0px;
     border-radius: 8px;
-    background-color: #1D254E;
-
+    background-color: #033549;
     margin-top: 40px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0821a;
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }    
 `;
 
 const TextButton = styled.div`

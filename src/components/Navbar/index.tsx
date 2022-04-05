@@ -8,8 +8,8 @@ function Navbar() {
         <Container>
             <Header>
                 <ShortcutsMenu>
-                    <FaRegBell color='#1D254E' size={20}></FaRegBell>
-                    <FaRegUser color='#1D254E' size={20}></FaRegUser>
+                    <FaRegBell color='#033549' size={20}></FaRegBell>
+                    <FaRegUser color='#033549' size={20}></FaRegUser>
                 </ShortcutsMenu>
             </Header>
         </Container>

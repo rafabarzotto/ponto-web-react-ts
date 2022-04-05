@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FC } from 'react';
+import { toast } from 'react-toastify'
 import { FaRegSave } from "react-icons/fa";
 import api from '../../services/Api';
 
@@ -7,10 +8,12 @@ import {
     Time, WeekText, TimeText, MonthText,
     SaveButton, TextButton
 } from './styles';
+import LoadingComponent from '../Loading';
 
 
 const Clock: FC<any> = (): JSX.Element => {
 
+    const [loading, setLoading] = useState(false);
     const [latitude, setLatitude] = useState(0);
     const [longitude, setlongitude] = useState(0);
 
@@ -46,11 +49,19 @@ const Clock: FC<any> = (): JSX.Element => {
     }
 
     async function postPunch() {
+        setLoading(true);
         try {
-            await api.clockApi.post('/empresa1/api/clock/punch', punch);
+            const response = await api.clockApi.post('/empresa1/api/clock/punch', punch);
+            if (response.status === 201) {
+                toast.success("Marcação realizada!");
+            } else {
+                toast.error("Erro ao realizar marcação!");
+            }
         } catch (err) {
             console.log(err);
         }
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -78,8 +89,14 @@ const Clock: FC<any> = (): JSX.Element => {
             clearInterval(interval);
         };
 
+
+
     }, [])
 
+
+    if (loading) {
+        return (<LoadingComponent value = 'Realizando marcação...' type = 'clock'></LoadingComponent>);
+    }
 
     return (
         <>
