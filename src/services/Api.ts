@@ -57,6 +57,7 @@ clockApi.interceptors.request.use(
       });
 
       if (response.data.status == 401) {
+        toast.error('Sua sessão expirou! Faça o login novamente.');
         return req.cancelToken;
       }
 
