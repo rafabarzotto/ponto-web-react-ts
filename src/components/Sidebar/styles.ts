@@ -45,6 +45,7 @@ const Row = styled.li`
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    margin-top: 20px;
 
     &:hover {
         cursor: pointer;

@@ -10,12 +10,12 @@ import SanconLogoMobile from "../../assets/logo.png";
 const sidebarDataUser = [
     {
         title: "Início",
-        icon: <BsHouseDoor />,
+        icon: <BsHouseDoor size={24}/>,
         link: "/"
     },
     {
         title: "Histórico",
-        icon: <BsCalendar4Event />,
+        icon: <BsCalendar4Event size={22} />,
         link: "/history"
     }
 ]
@@ -23,17 +23,17 @@ const sidebarDataUser = [
 const sidebarDataAdmin = [
     {
         title: "Início",
-        icon: <BsHouseDoor />,
+        icon: <BsHouseDoor size={24} />,
         link: "/"
     },
     {
         title: "Histórico",
-        icon: <BsCalendar4Event />,
+        icon: <BsCalendar4Event size={22} />,
         link: "/history"
     },
     {
         title: "Exportar",
-        icon: <BsFileEarmarkFont />,
+        icon: <BsFileEarmarkFont size={24} />,
         link: "/export"
     },
 ]
@@ -50,11 +50,13 @@ function Sidebar() {
         logout();
     }
 
+    /*
     useEffect(() => {
         if (tokenData && tokenData?.roles.includes('ADMIN_CLOCK')) {
             setSidebar(sidebarDataAdmin);
         }
     });
+    */
 
     return (
         <>

@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const Content = styled.div`
     display: flex;
+`;
+
+const Container = styled.div`
     flex: 1;
     flex-direction: column;
     justify-content: center;
@@ -40,17 +43,17 @@ const SpanText = styled.div`
 `;
 
 const ContainerPunches = styled.div`
-    height: 500px;
+    height: auto;
+    width: 600px;
     margin: 20px;
     border: 1px solid rgba(11, 53, 73, 0.1);
     box-sizing: border-box;
     border-radius: 32px;
+
 `;
 
 const PunchesTitle = styled.div`
     padding: 30px;
-    width: 179px;
-    height: 23px;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -59,12 +62,18 @@ const PunchesTitle = styled.div`
 `;
 
 const PunchesList = styled.ul`
-
+    list-style-type: none;
 `;
 
 const PunchesRow = styled.li`
-
-
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    margin-right: 50px;
+    
+    & + li {
+        margin-top: 50px;
+    }
 `;
 
 const PunchesRowIcon = styled.div`
@@ -73,10 +82,40 @@ const PunchesRowIcon = styled.div`
     place-items: center;
 `;
 
-const PunchesName = styled.div`
-  
+const ButtonRow = styled.div`
+    display: flex;
+    flex: 1;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 50px;
+    margin-bottom: 24px;
+`;
+
+const ButtonHistory = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    height: 40px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-color: rgba(249, 139, 71, 0.25);
+`;
+
+
+
+const ButtonText = styled.text`
+    color: #F98B47;
+    font-weight: bold;
+    font-size: 14px;
+
+    margin: 8px;
 `;
 
 export {Container, Title, TitleName, SpanText, 
-    ContainerTimer, ContainerPunches, 
-    PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, PunchesName};
+    ContainerTimer, ContainerPunches, Content, ButtonRow,
+    ButtonText, PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, ButtonHistory}
+        
