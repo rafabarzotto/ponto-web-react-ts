@@ -10,18 +10,21 @@ interface TokenData {
   exp: number,
 };
 
-const authBaseURL = 'http://127.0.0.1:3000';
-const clockBaseURL = 'http://127.0.0.1:4000';
+const authBaseURL = 'http://192.168.3.14:3000';
+const clockBaseURL = 'http://192.168.3.14:4000';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const authApi = axios.create({
-  baseURL: authBaseURL
+  baseURL: authBaseURL,
+  withCredentials: false
 });
 
 const clockApi = axios.create({
   baseURL: clockBaseURL,
-  headers: { Authorization: `Bearer ` }
+  headers: { Authorization: `Bearer ` },
+  withCredentials: false
 });
 
 authApi.interceptors.response.use(response => {

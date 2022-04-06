@@ -35,6 +35,12 @@ interface LoginFormData {
     password: string;
 }
 
+interface PuncheData {
+    id: number;
+    date: Date;
+    time: string;
+}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: any) {
@@ -105,6 +111,7 @@ function AuthProvider({ children }: any) {
 
     }
 
+
     async function logout() {
         toast.success("Usuário deslogado!");
         setToken('');
@@ -115,7 +122,7 @@ function AuthProvider({ children }: any) {
     }
 
     if (loading) {
-        return (<LoadingComponent value = 'Carregando...'></LoadingComponent>);
+        return (<LoadingComponent value='Carregando...'></LoadingComponent>);
     }
 
     return (

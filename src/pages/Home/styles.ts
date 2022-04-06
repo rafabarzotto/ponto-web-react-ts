@@ -2,23 +2,28 @@ import styled from "styled-components";
 
 const Content = styled.div`
     display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }     
 `;
 
 const Container = styled.div`
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    margin: 10px;
+
 `;
 
 const ContainerTimer = styled.div`
+    width: 600px;
+    @media (max-width: 768px) {
+        width: auto;
+    }     
 `;
 
 const Title = styled.div`
     font-size: 28px;
     color: #0B3549;
-
-    
     @media (max-width: 768px) {
         font-size: 20px;
     } 
@@ -43,13 +48,17 @@ const SpanText = styled.div`
 `;
 
 const ContainerPunches = styled.div`
-    height: auto;
     width: 600px;
+    // min-width: 600px;
     margin: 20px;
     border: 1px solid rgba(11, 53, 73, 0.1);
     box-sizing: border-box;
     border-radius: 32px;
-
+    @media (max-width: 768px) {
+        max-width: 350px;
+        margin: 0px;
+        margin-top: 30px;
+    }      
 `;
 
 const PunchesTitle = styled.div`
@@ -98,7 +107,6 @@ const ButtonHistory = styled.button`
     align-items: center;
     justify-content: center;
     flex-direction: row;
-
     height: 40px;
     border-width: 0px;
     border-radius: 8px;
@@ -106,12 +114,10 @@ const ButtonHistory = styled.button`
 `;
 
 
-
-const ButtonText = styled.text`
+const ButtonText = styled.div`
     color: #F98B47;
     font-weight: bold;
     font-size: 14px;
-
     margin: 8px;
 `;
 

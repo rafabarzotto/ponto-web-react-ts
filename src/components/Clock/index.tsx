@@ -9,9 +9,12 @@ import {
     SaveButton, TextButton
 } from './styles';
 import LoadingComponent from '../Loading';
+import { useNavigate } from 'react-router-dom';
 
 
 const Clock: FC<any> = (): JSX.Element => {
+
+    let navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [latitude, setLatitude] = useState(0);
@@ -25,6 +28,8 @@ const Clock: FC<any> = (): JSX.Element => {
     const [dayWeek, setDayWeek] = useState('');
     const [dayMonth, setDayMonth] = useState('');
 
+    const days = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
+    const months = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
     const punch = {
         dateTime: new Date(),
@@ -65,9 +70,6 @@ const Clock: FC<any> = (): JSX.Element => {
     }
 
     useEffect(() => {
-
-        const days = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
-        const months = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
         // Execução a cada segundo
         const interval = setInterval(() => {
@@ -117,8 +119,8 @@ const Clock: FC<any> = (): JSX.Element => {
                     </Time>
                 </ContainerTime>
                 <SaveButton onClick={postPunch}>
+                    <FaRegSave color='#ffffff' size={20}></FaRegSave>                    
                     <TextButton>Registrar</TextButton>
-                    <FaRegSave color='#ffffff' size={20}></FaRegSave>
                 </SaveButton>
             </Container>
         </>

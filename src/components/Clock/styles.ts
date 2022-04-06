@@ -104,7 +104,7 @@ const TextButton = styled.div`
     font-size: 14px;
     font-weight: bold;
     color: #FFFFFF;
-    margin-right: 8px;
+    margin-left: 8px;
 `;
 
 

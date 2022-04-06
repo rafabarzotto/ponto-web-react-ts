@@ -9,15 +9,11 @@ function Routes() {
 
     const { authenticated } = useContext(AuthContext);
 
-    return (<AppRoutes></AppRoutes>);
-
-    /*
     if (authenticated) {
         return (<AppRoutes></AppRoutes>);
     }
 
     return (<AuthRoutes></AuthRoutes>);
-    */
 }
 
 export default Routes;

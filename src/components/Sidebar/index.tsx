@@ -10,7 +10,7 @@ import SanconLogoMobile from "../../assets/logo.png";
 const sidebarDataUser = [
     {
         title: "Início",
-        icon: <BsHouseDoor size={24}/>,
+        icon: <BsHouseDoor size={24} />,
         link: "/"
     },
     {
@@ -50,13 +50,11 @@ function Sidebar() {
         logout();
     }
 
-    /*
     useEffect(() => {
         if (tokenData && tokenData?.roles.includes('ADMIN_CLOCK')) {
             setSidebar(sidebarDataAdmin);
         }
     });
-    */
 
     return (
         <>
