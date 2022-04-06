@@ -15,6 +15,7 @@ const Layout = styled.div`
 `
 const Header = styled.header`
     grid-area: 1 / 2 / 2 / 3;
+    margin: 30px;
 `
 
 const Aside = styled.aside`
@@ -23,6 +24,7 @@ const Aside = styled.aside`
 
 const Main = styled.main`
     grid-area: 2 / 2 / 3 / 3;
+    margin: 30px;
 `
 
 const Footer = styled.footer`
