@@ -2,14 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import Clock from '../../components/Clock';
 import Layout from '../../components/Layout';
 import { AuthContext } from '../../context/AuthContext';
-import { FaClock, FaTags } from "react-icons/fa";
+import { FaClock, FaTags, FaRegSave } from "react-icons/fa";
+import LoadingComponent from '../../components/Loading';
+import { toast } from 'react-toastify';
 import api from '../../services/Api';
 
 import {
     Container,
     Content,
     ContainerPunches,
-    ContainerTimer,
     PunchesList,
     ButtonHistory,
     PunchesRow,
@@ -18,8 +19,12 @@ import {
     Title,
     TitleName,
     ButtonText,
-    ButtonRow
+    ButtonRow,
+    SaveButton,
+    TextButton,
+    ContainerSaveButton
 } from './styles';
+
 
 interface PuncheData {
     id: number;
@@ -32,8 +37,53 @@ function HomePage() {
     const { userData } = useContext(AuthContext);
     const [punches, setPunches] = useState<PuncheData[]>();
 
+    const [loading, setLoading] = useState(false);
+
+    const [deviceType, setDeviceType] = useState<String>();
+    const [ipAddress, setIpAddress] = useState<String>();
+    const [latitude, setLatitude] = useState<String>();
+    const [longitude, setlongitude] = useState<String>();
+
     const days = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
     const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+    const punch = {
+        dateTime: new Date(),
+        ipAddress: ipAddress,
+        deviceInfo: deviceType,
+        latitude: latitude,
+        longitude: longitude,
+    }
+
+    const getInformationsFromBrowser = () => {
+        
+        if(navigator.userAgent){
+            setDeviceType(navigator.userAgent);
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function (position) {
+                setLatitude(String(position.coords.latitude));
+                setlongitude(String(position.coords.longitude));
+            });
+        }
+    }
+
+    async function postPunch() {
+        setLoading(true);
+        try {
+            const response = await api.clockApi.post('/empresa1/api/clock/punch', punch);
+            if (response.status === 201) {
+                toast.success("Marcação realizada!");
+                getUserPunches();
+            } else {
+                toast.error("Erro ao realizar marcação!");
+            }
+        } catch (err) {
+        }
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setLoading(false);
+    }
 
     async function getUserPunches() {
         try {
@@ -43,7 +93,6 @@ function HomePage() {
                 setPunches(response.data.punches);
             }
         } catch (e) {
-
         }
     }
 
@@ -53,20 +102,28 @@ function HomePage() {
     }
 
     useEffect(() => {
+        getInformationsFromBrowser();
         getUserPunches();
     }, []);
+
+
+    if (loading) {
+        return (<LoadingComponent value='Realizando marcação...' type='clock'></LoadingComponent>);
+    }
 
     return (
         <Layout>
             <Content>
                 <Container>
-
-                    <ContainerTimer>
-                        <Title>Olá, <TitleName>{userData?.name}</TitleName></Title><br></br>
-                        <SpanText>Bem-vindo de volta à nossa plataforma de gestão do ponto</SpanText>
-                    </ContainerTimer>
-
+                    <Title>Olá, <TitleName>{userData?.name}</TitleName></Title><br></br>
+                    <SpanText>Bem-vindo de volta à nossa plataforma de gestão do ponto</SpanText>
                     <Clock></Clock>
+                    <ContainerSaveButton>
+                    <SaveButton onClick={postPunch}>
+                        <FaRegSave color='#ffffff' size={20}></FaRegSave>
+                        <TextButton>Registrar</TextButton>
+                    </SaveButton>
+                    </ContainerSaveButton>
                 </Container>
 
                 <ContainerPunches>
@@ -88,7 +145,7 @@ function HomePage() {
                     </PunchesList>
                     <ButtonRow>
                         <ButtonHistory>
-                            <FaTags size={16} color='#F98B47' />                            
+                            <FaTags size={16} color='#F98B47' />
                             <ButtonText>Ver todas</ButtonText>
                         </ButtonHistory>
                     </ButtonRow>

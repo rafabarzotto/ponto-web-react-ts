@@ -14,11 +14,40 @@ const Container = styled.div`
 
 `;
 
-const ContainerTimer = styled.div`
-    width: 600px;
+const ContainerSaveButton = styled.div`
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 188px;
     @media (max-width: 768px) {
         width: auto;
-    }     
+    }      
+`;
+
+const SaveButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 65px;
+    border-width: 0px;
+    border-radius: 8px;
+    background-color: #033549;
+    margin-top: 40px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0821a;
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }    
+`;
+
+const TextButton = styled.div`
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-left: 8px;
 `;
 
 const Title = styled.div`
@@ -121,7 +150,7 @@ const ButtonText = styled.div`
     margin: 8px;
 `;
 
-export {Container, Title, TitleName, SpanText, 
-    ContainerTimer, ContainerPunches, Content, ButtonRow,
-    ButtonText, PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, ButtonHistory}
-        
+export {
+    Container, Title, TitleName, SpanText, ContainerPunches, Content, ButtonRow,
+    ButtonText, PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, ButtonHistory, ContainerSaveButton, SaveButton, TextButton
+}

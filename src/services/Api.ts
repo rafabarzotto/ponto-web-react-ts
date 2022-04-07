@@ -41,9 +41,8 @@ clockApi.interceptors.request.use(
   async req => {
     let authToken: string | null = localStorage.getItem('sanconAuthToken') ? localStorage.getItem('sanconAuthToken') : null;
 
-    console.log(authToken);
-
     if (!authToken) {
+      toast.error('Sua sessão expirou! Faça o login novamente');
       return req.cancelToken;
     }
 
@@ -60,7 +59,7 @@ clockApi.interceptors.request.use(
       });
 
       if (response.data.status == 401) {
-        toast.error('Sua sessão expirou! Faça o login novamente.');
+        toast.error('Sua sessão expirou! Faça o login novamente');
         return req.cancelToken;
       }
 
@@ -77,7 +76,12 @@ clockApi.interceptors.request.use(
     return req;
 
   }, error => {
-    Promise.reject(error)
+    if (error.response.status === 401) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error('Erro de Conexão! - StatusCode: 500');
+    }
+    return error;
   }
 );
 

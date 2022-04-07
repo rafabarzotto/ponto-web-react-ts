@@ -14,6 +14,10 @@ const Container = styled.div`
 const ContainerTime = styled.div`
     flex: 1;
     display: flex;
+    width: 600px;
+    @media (max-width: 768px) {
+        width: auto;
+    }      
 `;
 
 const Time = styled.div`
@@ -82,31 +86,5 @@ const MonthText = styled.div`
     }    
 `;
 
-const SaveButton = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 124px;
-    height: 60px;
-    border-width: 0px;
-    border-radius: 8px;
-    background-color: #033549;
-    margin-top: 40px;
 
-    &:hover {
-        cursor: pointer;
-        background-color: #f0821a;
-        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-    }    
-`;
-
-const TextButton = styled.div`
-    font-size: 14px;
-    font-weight: bold;
-    color: #FFFFFF;
-    margin-left: 8px;
-`;
-
-
-export {Container, ContainerTime, Day, Time, WeekText, MonthText, TimeText, 
-    SaveButton, TextButton};
+export { Container, ContainerTime, Day, Time, WeekText, MonthText, TimeText };
