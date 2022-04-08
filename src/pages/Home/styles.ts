@@ -3,26 +3,40 @@ import styled from "styled-components";
 const Content = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: stretch;
     justify-content: flex-start;
+    align-items: center;
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: start;
+    }
+
     @media (max-width: 768px) {
         flex-direction: column;
+        align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: start;
+    }
+        
+    @media (max-width: 1400px) {
+
     }     
+   
 `;
 
 const Container = styled.div`
-
+ 
 `;
 
 const ContainerSaveButton = styled.div`
     width: auto;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-right: 188px;
-    @media (max-width: 768px) {
-        width: auto;
-    }      
+    // align-items: flex-end;
+    // margin-right: 290px;   
 `;
 
 const SaveButton = styled.button`
@@ -77,21 +91,28 @@ const SpanText = styled.div`
 `;
 
 const ContainerPunches = styled.div`
-    width: 600px;
-    // min-width: 600px;
-    margin: 20px;
+
+    width: auto;
+    margin-top: 30px;
     border: 1px solid rgba(11, 53, 73, 0.1);
     box-sizing: border-box;
     border-radius: 32px;
-    @media (max-width: 768px) {
-        max-width: 350px;
-        margin: 0px;
-        margin-top: 30px;
-    }      
+
+    @media (min-width: 1025px) and (max-width: 1366px) {
+        margin-left: 80px;
+        width: 400px;
+    }
+
+    @media (min-width: 1367px) {
+        margin-left: 80px;
+        width: 500px;
+    }
+    
+    
 `;
 
 const PunchesTitle = styled.div`
-    padding: 30px;
+    padding: 20px;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -105,12 +126,11 @@ const PunchesList = styled.ul`
 
 const PunchesRow = styled.li`
     display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    margin-right: 50px;
-    
+    justify-content: space-evenly;
+    align-items: center;
+    padding-right: 30px;
     & + li {
-        margin-top: 50px;
+        margin-top: 20px;
     }
 `;
 
@@ -123,12 +143,10 @@ const PunchesRowIcon = styled.div`
 const ButtonRow = styled.div`
     display: flex;
     flex: 1;
-
     align-items: center;
     justify-content: center;
-
-    margin-top: 50px;
-    margin-bottom: 24px;
+    margin-top: 40px;
+    margin-bottom: 20px;
 `;
 
 const ButtonHistory = styled.button`

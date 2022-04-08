@@ -14,7 +14,7 @@ const Container = styled.div`
     transition: width .2s ease-in;  
 
     @media (max-width: 768px) {
-        width: 80px;
+        width: 70px;
     }
 
 `;
@@ -142,24 +142,5 @@ const ButtonText = styled.div`
     }
 `;
 
-
-// .side-menu.inactive{
-//     width: 80px;
-// }
-
-// .side-menu .top-section{
-//     position: relative;
-// }
-
-// .side-menu .top-section .logo{
-//     width: 40px;
-//     height: 40px;
-//     overflow: hidden;
-//     display: inline-block;
-// }
-// .side-menu .top-section .logo img{
-//     max-width: 100%;
-//     max-height: 100%;
-// }
 
 export { Container, List, Row, Icon, Title, Image, TopSectionLogoMobileImg, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body };
