@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Content = styled.div`
     display: flex;
@@ -43,8 +43,8 @@ const SaveButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
-    height: 65px;
+    width: 130px;
+    height: 55px;
     border-width: 0px;
     border-radius: 8px;
     background-color: #033549;
@@ -54,14 +54,23 @@ const SaveButton = styled.button`
         cursor: pointer;
         background-color: #f0821a;
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-    }    
+    }
+    
+    @media (max-width: 768px) {
+        width: 100px;
+        height: 45px;
+    } 
 `;
 
 const TextButton = styled.div`
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: #FFFFFF;
     margin-left: 8px;
+
+    @media (max-width: 768px) {
+        font-size: 12px
+    }    
 `;
 
 const Title = styled.div`
@@ -94,19 +103,29 @@ const ContainerPunches = styled.div`
 
     width: auto;
     margin-top: 30px;
+    padding: 1%;
     border: 1px solid rgba(11, 53, 73, 0.1);
     box-sizing: border-box;
     border-radius: 32px;
 
-    @media (min-width: 1025px) and (max-width: 1366px) {
-        margin-left: 80px;
+    @media (min-width: 800px) {
+        margin-left: 0px;
         width: 400px;
     }
+
+    @media (min-width: 1024px) {
+        margin-left: 30px;
+        width: 500px;
+    }    
 
     @media (min-width: 1367px) {
         margin-left: 80px;
         width: 500px;
     }
+
+    @media (max-width: 768px) {
+        display: none !important;
+    } 
     
     
 `;
@@ -158,6 +177,11 @@ const ButtonHistory = styled.button`
     border-width: 0px;
     border-radius: 8px;
     background-color: rgba(249, 139, 71, 0.25);
+
+    &:hover {
+        cursor: pointer;
+        background-color: #033549;
+    }       
 `;
 
 
@@ -168,7 +192,93 @@ const ButtonText = styled.div`
     margin: 8px;
 `;
 
+
+
+// aqui
+
+const Table = styled.table`
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+`;
+
+const Thead = styled.thead`
+    background-color: transparent;
+    transition: all 0.25s ease;
+    border-radius: 10px;
+`;
+
+const Tr = styled.tr`
+    cursor: auto;
+
+    // &:nth-child(odd) {
+    //     background-color: #f9f9f9;
+    // }
+`;
+
+const Th = styled.th`
+    background-color: #f1f1f1;
+    padding: 12px;
+    font-weight: 500;
+    text-align: left;
+    font-size: 14px;
+    color: #2c3e50;
+
+    &:first-child {
+        border-top-left-radius: 15px;
+    }
+
+    &:last-child {
+        border-top-right-radius: 15px;
+    }
+
+`;
+
+const Tbody = styled.tbody`
+
+`;
+
+const Td = styled.td`
+    padding: 12px;
+    font-size: 14px;
+    color: grey;
+`;
+
+
+const TableFooter = styled.div`
+    background-color: #f1f1f1;
+    padding: 8px 0px;
+    width: 100%;
+    font-weight: 500;
+    text-align: left;
+    font-size: 16px;
+    color: #2c3e50;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Button = styled.button`
+    border: none;
+    padding: 7px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 4px;
+    margin-left: 4px;
+    color: #2c3e50;
+    background: #f9f9f9;
+
+    ${props => props.disabled && css`
+        color: white;
+        background: #f0821a;
+    `}  
+`;
+
+
 export {
     Container, Title, TitleName, SpanText, ContainerPunches, Content, ButtonRow,
-    ButtonText, PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, ButtonHistory, ContainerSaveButton, SaveButton, TextButton
+    ButtonText, PunchesTitle, PunchesList, PunchesRow, PunchesRowIcon, ButtonHistory, ContainerSaveButton, SaveButton, TextButton,
+    Table, Thead, Tr, Th, Tbody, Td
 }

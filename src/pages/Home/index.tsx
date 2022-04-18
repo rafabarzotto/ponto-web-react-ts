@@ -22,8 +22,10 @@ import {
     ButtonRow,
     SaveButton,
     TextButton,
-    ContainerSaveButton
+    ContainerSaveButton,
+    Table, Thead, Tr, Th, Tbody, Td
 } from './styles';
+import { useNavigate } from 'react-router-dom';
 
 
 interface PuncheData {
@@ -55,9 +57,11 @@ function HomePage() {
         longitude: longitude,
     }
 
+    let navigate = useNavigate();
+
     const getInformationsFromBrowser = () => {
-        
-        if(navigator.userAgent){
+
+        if (navigator.userAgent) {
             setDeviceType(navigator.userAgent);
         }
 
@@ -81,7 +85,7 @@ function HomePage() {
             }
         } catch (err) {
         }
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setLoading(false);
     }
 
@@ -119,32 +123,57 @@ function HomePage() {
                     <SpanText>Bem-vindo de volta à nossa plataforma de gestão do ponto</SpanText>
                     <Clock></Clock>
                     <ContainerSaveButton>
-                    <SaveButton onClick={postPunch}>
-                        <FaRegSave color='#ffffff' size={20}></FaRegSave>
-                        <TextButton>Registrar</TextButton>
-                    </SaveButton>
+                        <SaveButton onClick={postPunch}>
+                            <FaRegSave color='#ffffff' size={20}></FaRegSave>
+                            <TextButton>Registrar</TextButton>
+                        </SaveButton>
                     </ContainerSaveButton>
                 </Container>
 
                 <ContainerPunches>
-                    <PunchesTitle>Atividades Recentes</PunchesTitle>
-                    <PunchesList>
+                    <PunchesTitle>Marcações Recentes</PunchesTitle>
+                    <Table>
+                        {/* <Thead>
+                        <Tr>
+                            <Th>Data</Th>
+                            <Th>Hora</Th>
+                            <Th>Dia da Semana</Th>
+                        </Tr>
+                    </Thead> */}
+                        <Tbody>
+                            {punches?.map((val, key) => {
+                                let date = new Date(val.date);
+                                let datestring = zeroFill(date.getDate()) + "/" + zeroFill((date.getMonth() + 1)) + "/" + date.getFullYear();
+                                let dayOfWeek = days[date.getDay()];
+                                return (
+                                    <Tr key={key}>
+                                        <Td><FaClock color='#0B3549' /></Td>
+                                        <Td>{datestring}</Td>
+                                        <Td>{dayOfWeek}</Td>
+                                        <Td>{val.time}</Td>
+                                    </Tr>
+                                )
+                            })}
+                        </Tbody>
+                    </Table>
+
+                    {/* <PunchesList>
                         {punches?.map((val, key) => {
                             let date = new Date(val.date);
-                            let day = days[date.getDay()];
-                            let month = zeroFill(date.getUTCDate()) + ' de ' + months[date.getMonth()];
+                            let datestring = zeroFill(date.getDate())  + "/" + zeroFill((date.getMonth()+1)) + "/" + date.getFullYear();
                             return (
                                 <PunchesRow>
                                     <FaClock color='#0B3549' />
-                                    <SpanText>{day}</SpanText>
-                                    <SpanText>{month}</SpanText>
+                                    <SpanText>{datestring}</SpanText>
                                     <SpanText>{val.time}</SpanText>
                                 </PunchesRow>
                             );
                         })}
-                    </PunchesList>
+                    </PunchesList> */}
                     <ButtonRow>
-                        <ButtonHistory>
+                        <ButtonHistory onClick={() => {
+                                navigate('/history')
+                            }}>
                             <FaTags size={16} color='#F98B47' />
                             <ButtonText>Ver todas</ButtonText>
                         </ButtonHistory>

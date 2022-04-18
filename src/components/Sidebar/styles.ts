@@ -53,6 +53,25 @@ const Row = styled.li`
     }
 `;
 
+const RowLogout = styled.li`
+    width: 100%;
+    height: 60px;
+    list-style-type: none;
+    margin: 0%;
+    display: flex;
+    flex-direction: row;
+    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-top: 20px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0821a;
+    }    
+`
+
 const Icon = styled.div`
     flex: 30%;
     display: grid;
@@ -143,4 +162,4 @@ const ButtonText = styled.div`
 `;
 
 
-export { Container, List, Row, Icon, Title, Image, TopSectionLogoMobileImg, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body };
+export { Container, List, Row, RowLogout, Icon, Title, Image, TopSectionLogoMobileImg, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body };

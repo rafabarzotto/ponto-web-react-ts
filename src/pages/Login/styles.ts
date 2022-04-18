@@ -4,6 +4,11 @@ const Container = styled.div`
     display: flex;
     flex: 1;
     flex-direction: row;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+        margin-top: 36px;
+    }  
 `;
 
 const ContainerForm = styled.div`
@@ -19,21 +24,26 @@ const Text = styled.div`
     color: #033549;
     font-size: 36px;
     font-weight: bold;
+
+    @media (max-width: 1024px) {
+        font-size: 30px;
+    }     
 `;
 
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-
-    margin-top: 52px;
+    text-align: center;
+    margin: 50px 0;     
 `;
 
 
 const Input = styled.input`
-    width: 540px;
     height: 60px;
-    border-radius: 10px;
-    border-width: 0;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 24px;
 
     color: #636885;
     background-color: #F4F4F4;
@@ -47,6 +57,11 @@ const Input = styled.input`
     :focus{
         color: #033549;
     }
+
+    @media (max-width: 1024px) {
+        height: 40px;
+        font-size: 16px;
+    }  
 `;
 
 const Button = styled.button`
@@ -66,6 +81,12 @@ const Button = styled.button`
         cursor: pointer;
         background-color: #033549;
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    }
+    
+    @media (max-width: 1024px) {
+        width: 350px;
+        height: 45px;
+        font-size: 18px;
     }     
 `;
 
@@ -81,6 +102,10 @@ const ContainerWelcome = styled.div`
     height: 100vh;
     
     background-color: #033549;
+
+    @media (max-width: 1024px) {
+        display: none !important;
+    } 
 `;
 
 

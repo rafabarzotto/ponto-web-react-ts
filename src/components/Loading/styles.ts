@@ -23,6 +23,10 @@ const LoadingText = styled.div`
     top: 60%;
     left: 50%;
     transform: translate(-50%, -60%);
+
+    @media (max-width: 768px) {
+        // display: none !important;
+    }
 `
 
 export { Overlay, LoadingText };

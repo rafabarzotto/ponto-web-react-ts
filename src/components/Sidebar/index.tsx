@@ -3,7 +3,7 @@ import { FaHome, FaRegClock, FaRegFileAlt, FaSignOutAlt } from "react-icons/fa";
 import { BsHouseDoor, BsClock, BsCalendar4Event, BsFileEarmarkFont } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { Container, List, Row, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body, TopSectionLogoMobileImg } from './styles';
+import { Container, List, Row, RowLogout, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body, TopSectionLogoMobileImg } from './styles';
 import SanconLogo from "../../assets/sancon-logo-claro.svg";
 import SanconLogoMobile from "../../assets/logo.png";
 
@@ -74,18 +74,18 @@ function Sidebar() {
                                     key={key}
                                     onClick={() => {
                                         navigate(val.link)
-                                        console.log(val.link);
                                     }}>
                                     <Icon>{val.icon}</Icon><Title>{val.title}</Title>
                                 </Row>
                             );
                         })}
+                        <RowLogout onClick={handleLogout}><Icon><FaSignOutAlt size={22} /></Icon><Title>Sair</Title></RowLogout>
                     </List>
                 </Body>
-                <ButtonLogout onClick={handleLogout}>
-                    <FaSignOutAlt size={20} />
+                {/* <ButtonLogout onClick={handleLogout}>
+
                     <ButtonText>Sair</ButtonText>
-                </ButtonLogout>
+                </ButtonLogout> */}
             </Container>
         </>
     );

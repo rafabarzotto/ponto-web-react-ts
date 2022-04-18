@@ -9,7 +9,7 @@ const LoadingComponent: FC<any> = ({ value = '', type = '' }): JSX.Element => {
   return (
     <Overlay>
       {type === 'clock' ?
-        <div className="la-timer la-3x">
+        <div className="la-timer la-1x">
           <div></div>
         </div>
         :
