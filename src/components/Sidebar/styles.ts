@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
     display: flex;
@@ -51,6 +51,11 @@ const Row = styled.li`
         cursor: pointer;
         background-color: #f0821a;
     }
+
+    &.active {
+        cursor: pointer;
+        background-color: #f0821a;
+    }   
 `;
 
 const RowLogout = styled.li`

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaHome, FaRegClock, FaRegFileAlt, FaSignOutAlt } from "react-icons/fa";
 import { BsHouseDoor, BsClock, BsCalendar4Event, BsFileEarmarkFont } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { Container, List, Row, RowLogout, Icon, Title, TopSection, TopSectionLogo, TopSectionLogoImg, ButtonLogout, ButtonText, Body, TopSectionLogoMobileImg } from './styles';
 import SanconLogo from "../../assets/sancon-logo-claro.svg";
@@ -50,6 +50,8 @@ function Sidebar() {
         logout();
     }
 
+    const location = useLocation();
+
     useEffect(() => {
         if (tokenData && tokenData?.roles.includes('ADMIN_CLOCK')) {
             setSidebar(sidebarDataAdmin);
@@ -70,7 +72,7 @@ function Sidebar() {
                     <List className='SidebarList'>
                         {sidebar.map((val, key) => {
                             return (
-                                <Row
+                                <Row className={val.link == location.pathname ? 'active': ''}
                                     key={key}
                                     onClick={() => {
                                         navigate(val.link)
