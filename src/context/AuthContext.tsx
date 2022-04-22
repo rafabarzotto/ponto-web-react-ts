@@ -73,7 +73,7 @@ function AuthProvider({ children }: any) {
     async function login(data: LoginFormData) {
         setLoading(true);
         try {
-            const response = await api.authApi.post('/empresa1/api/auth/login', data);
+            const response = await api.authApi.post('/empresa_teste/api/auth/login', data);
 
             if (response.status === 201) {
                 toast.success("Usuário Logado!");
@@ -93,7 +93,7 @@ function AuthProvider({ children }: any) {
             let dataToken: TokenData = jwtDecode(token);
 
             try {
-                const response = await api.clockApi.get('/empresa1/api/employees/userId/' + dataToken?.sub);
+                const response = await api.clockApi.get('/empresa_teste/api/employees/userId/' + dataToken?.sub);
                 if (response.status === 200) {
                     localStorage.setItem('sanconClockUser', JSON.stringify(response.data));
                     setUserData(response.data);

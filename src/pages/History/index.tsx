@@ -52,7 +52,7 @@ function HistoryPage() {
 
     async function getUserPunches(page: number) {
         try {
-            const response = await api.clockApi.get('/empresa1/api/punches/history?page=' + `${page}` + '&perPage=10');
+            const response = await api.clockApi.get('/empresa_teste/api/punches/history?page=' + `${page}` + '&perPage=10');
 
             if (response.status === 200) {
                 setPunches(response.data.punches);

@@ -10,8 +10,8 @@ interface TokenData {
   exp: number,
 };
 
-const authBaseURL = 'http://192.168.3.14:3000';
-const clockBaseURL = 'http://192.168.3.14:4000';
+const authBaseURL = 'https://sancon-auth.azurewebsites.net';
+const clockBaseURL = 'https://sancon-clock-api.azurewebsites.net';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -54,7 +54,7 @@ clockApi.interceptors.request.use(
 
     if (user.iat > user.exp) {
 
-      const response = await axios.put(`${authBaseURL}/empresa1/api/token/refresh`, {
+      const response = await axios.put(`${authBaseURL}/empresa_teste/api/token/refresh`, {
         oldToken: authToken
       });
 
@@ -107,7 +107,7 @@ export default { authApi, clockApi };
 //       return req;
 //     };
 
-//     const response = await axios.put(`${authBaseURL}/empresa1/api/token/refresh`, {
+//     const response = await axios.put(`${authBaseURL}/empresa_teste/api/token/refresh`, {
 //       oldToken: token
 //     });
 

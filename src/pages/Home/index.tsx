@@ -76,7 +76,7 @@ function HomePage() {
     async function postPunch() {
         setLoading(true);
         try {
-            const response = await api.clockApi.post('/empresa1/api/clock/punch', punch);
+            const response = await api.clockApi.post('/empresa_teste/api/clock/punch', punch);
             if (response.status === 201) {
                 toast.success("Marcação realizada!");
                 getUserPunches();
@@ -91,7 +91,7 @@ function HomePage() {
 
     async function getUserPunches() {
         try {
-            const response = await api.clockApi.get('/empresa1/api/punches/history?page=1&perPage=5');
+            const response = await api.clockApi.get('/empresa_teste/api/punches/history?page=1&perPage=5');
 
             if (response.status === 200) {
                 setPunches(response.data.punches);
