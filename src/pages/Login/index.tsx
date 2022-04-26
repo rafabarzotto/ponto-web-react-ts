@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import LoginImage from '../../assets/login.png';
+import LogoLogin from '../../assets/LogoLogin.png';
 import { AuthContext } from '../../context/AuthContext';
-import { Container, ContainerForm, ContainerWelcome, ImageLogin, TextWelcome, TitleWelcome, Text, Input, Form, Button } from './styles';
+import { Container, ContainerForm, ContainerWelcome, ImageLogin, TextWelcome, TitleWelcome, Text, Input, Form, Button, ImageLogo } from './styles';
 
 interface LoginFormData {
     username: string;
@@ -14,7 +15,7 @@ function Login() {
 
     const { authenticated, login } = useContext(AuthContext);
 
-    console.log(authenticated);
+    // console.log(authenticated);
 
     async function handleLogin(event: any) {
         event.preventDefault();
@@ -22,21 +23,30 @@ function Login() {
     }
 
     return (
+        <>
+        {/* <ImageLogo src={LogoLogin} /> */}
         <Container>
             <ContainerForm>
                 <Text>Entrar</Text>
                 <Form onSubmit={handleLogin}>
-                    <Input type="text" placeholder='Usuário' autoFocus value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <Input type="email" placeholder='Usuário' autoFocus value={username} onChange={(e) => setUsername(e.target.value)} />
                     <Input type="password" placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Button type='submit'>Entrar</Button>
                 </Form>
             </ContainerForm>
             <ContainerWelcome>
-                <TitleWelcome>Olá, seja {`\n`}bem vindo.</TitleWelcome>
-                <TextWelcome>Esta é nossa plataforma {`\n`}para gestão de registros do ponto</TextWelcome>
+                <TitleWelcome>
+                    <span>Olá, seja</span>
+                    <span>bem vindo</span>
+                </TitleWelcome>
+                <TextWelcome>
+                    <span>Esta é nossa plataforma</span>
+                    <span>para gestão de registros do ponto</span> 
+                </TextWelcome>
                 <ImageLogin src={LoginImage} />
             </ContainerWelcome>
         </Container>
+        </>
     );
 }
 

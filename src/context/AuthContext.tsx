@@ -25,6 +25,7 @@ interface AuthContextData {
     token: string | null;
     tokenData: TokenData;
     userData: UserData;
+    tenant: string;
     login(data: LoginFormData): Promise<void>;
     logout(): void;
     getEmployee(): void;
@@ -49,11 +50,13 @@ function AuthProvider({ children }: any) {
     const [token, setToken] = useState('');
     const [userData, setUserData] = useState<UserData>({} as UserData);
     const [tokenData, setTokenData] = useState<TokenData>({} as TokenData);
+    const [tenant, setTenant] = useState('');
 
     useEffect(() => {
         async function loadStorageData() {
             const storageToken = localStorage.getItem('sanconAuthToken');
             const storageUser = localStorage.getItem('sanconClockUser');
+            const storageTenant = localStorage.getItem('sanconAuthTenant');
 
             await new Promise(resolve => setTimeout(resolve, 2500));
 
@@ -61,6 +64,7 @@ function AuthProvider({ children }: any) {
                 setToken(storageToken);
                 setUserData(JSON.parse(storageUser));
                 setTokenData(jwtDecode(storageToken));
+                setTenant(String(storageTenant));
                 setLoading(false);
             }
 
@@ -70,20 +74,36 @@ function AuthProvider({ children }: any) {
         loadStorageData();
     }, []);
 
+    // function validateTenant(tenant: any) {
+    //     let re = /(?<=@)[^.]+(?=)/g;
+    //     return re.test(tenant);
+    // }
+
+    // function getTenant(tenant: any) {
+    //     let domain = tenant.replace(/.*@/, "");
+    //     setTenant(domain);
+    //     return domain;
+    // }
+
     async function login(data: LoginFormData) {
         setLoading(true);
+        let tenant = data.username.split('@')[1].replaceAll('.', '_');
+        data.username = data.username.split('@')[0];
         try {
-            const response = await api.authApi.post('/empresa_teste/api/auth/login', data);
+            const response = await api.authApi.post(tenant + '/api/auth/login', data);
 
             if (response.status === 201) {
                 toast.success("Usuário Logado!");
                 setTokenData(jwtDecode(response.data.token));
                 setToken(response.data.token);
+                setTenant(tenant);
                 localStorage.setItem('sanconAuthToken', response.data.token);
+                localStorage.setItem('sanconAuthTenant', tenant);
             }
         } catch (e) {
             await logout();
         }
+
         setLoading(false);
     }
 
@@ -93,7 +113,7 @@ function AuthProvider({ children }: any) {
             let dataToken: TokenData = jwtDecode(token);
 
             try {
-                const response = await api.clockApi.get('/empresa_teste/api/employees/userId/' + dataToken?.sub);
+                const response = await api.clockApi.get(tenant + '/api/employees/userId/' + dataToken?.sub);
                 if (response.status === 200) {
                     localStorage.setItem('sanconClockUser', JSON.stringify(response.data));
                     setUserData(response.data);
@@ -119,6 +139,7 @@ function AuthProvider({ children }: any) {
         setTokenData({} as TokenData);
         localStorage.removeItem('sanconAuthToken');
         localStorage.removeItem('sanconClockUser');
+        localStorage.removeItem('sanconAuthTenant');
     }
 
     if (loading) {
@@ -126,7 +147,7 @@ function AuthProvider({ children }: any) {
     }
 
     return (
-        <AuthContext.Provider value={{ authenticated: Boolean(token), token, tokenData, userData, login, logout, getEmployee }}>
+        <AuthContext.Provider value={{ authenticated: Boolean(token), token, tokenData, userData, tenant, login, logout, getEmployee }}>
             {children}
         </AuthContext.Provider>
     );

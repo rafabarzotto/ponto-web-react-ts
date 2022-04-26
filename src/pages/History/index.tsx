@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../components/Layout";
+import { AuthContext } from "../../context/AuthContext";
 import api from '../../services/Api';
 import { Table, Tr, Th, Thead, Tbody, Td, TableFooter, Button, DivTable } from "./styles";
 // import styles from './styles.css';
@@ -16,6 +17,7 @@ function HistoryPage() {
     const [punches, setPunches] = useState<PuncheData[]>();
     const [page, setPage] = useState<number>(1);
     const [range, setRange] = useState<number[]>();
+    const { tenant } = useContext(AuthContext);
 
     const days = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
 
@@ -37,7 +39,7 @@ function HistoryPage() {
                 check = true;
             }
         }
-        
+
         if (check) {
             return 'Mobile';
         }
@@ -52,7 +54,7 @@ function HistoryPage() {
 
     async function getUserPunches(page: number) {
         try {
-            const response = await api.clockApi.get('/empresa_teste/api/punches/history?page=' + `${page}` + '&perPage=10');
+            const response = await api.clockApi.get(tenant + '/api/punches/history?page=' + `${page}` + '&perPage=10');
 
             if (response.status === 200) {
                 setPunches(response.data.punches);
@@ -87,13 +89,14 @@ function HistoryPage() {
                     <Tbody>
                         {punches?.map((val, key) => {
                             let date = new Date(val.date);
-                            let datestring = zeroFill(date.getDate()) + "/" + zeroFill((date.getMonth() + 1)) + "/" + date.getFullYear();
+                            let dateString = zeroFill(date.getDate()) + "/" + zeroFill((date.getMonth() + 1)) + "/" + date.getFullYear();
+                            let timeString = zeroFill(date.getHours()) + ":" + zeroFill(date.getMinutes()) + ":" + zeroFill(date.getSeconds());
                             let dayOfWeek = days[date.getDay()];
                             return (
                                 <Tr key={key}>
-                                    <Td>{datestring}</Td>
+                                    <Td>{dateString}</Td>
+                                    <Td>{timeString}</Td>
                                     <Td>{dayOfWeek}</Td>
-                                    <Td>{val.time}</Td>
                                     <Td>{mobileCheck(val.deviceInfo)}</Td>
                                 </Tr>
                             )

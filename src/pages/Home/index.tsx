@@ -36,7 +36,7 @@ interface PuncheData {
 
 function HomePage() {
 
-    const { userData } = useContext(AuthContext);
+    const { userData, tenant } = useContext(AuthContext);
     const [punches, setPunches] = useState<PuncheData[]>();
 
     const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ function HomePage() {
     async function postPunch() {
         setLoading(true);
         try {
-            const response = await api.clockApi.post('/empresa_teste/api/clock/punch', punch);
+            const response = await api.clockApi.post(tenant + '/api/clock/punch', punch);
             if (response.status === 201) {
                 toast.success("Marcação realizada!");
                 getUserPunches();
@@ -91,7 +91,7 @@ function HomePage() {
 
     async function getUserPunches() {
         try {
-            const response = await api.clockApi.get('/empresa_teste/api/punches/history?page=1&perPage=5');
+            const response = await api.clockApi.get(tenant + '/api/punches/history?page=1&perPage=5');
 
             if (response.status === 200) {
                 setPunches(response.data.punches);
@@ -143,14 +143,15 @@ function HomePage() {
                         <Tbody>
                             {punches?.map((val, key) => {
                                 let date = new Date(val.date);
-                                let datestring = zeroFill(date.getDate()) + "/" + zeroFill((date.getMonth() + 1)) + "/" + date.getFullYear();
+                                let dateString = zeroFill(date.getDate()) + "/" + zeroFill((date.getMonth() + 1)) + "/" + date.getFullYear();
+                                let timeString = zeroFill(date.getHours()) + ":" + zeroFill(date.getMinutes()) + ":" + zeroFill(date.getSeconds());
                                 let dayOfWeek = days[date.getDay()];
                                 return (
                                     <Tr key={key}>
                                         <Td><FaClock color='#0B3549' /></Td>
-                                        <Td>{datestring}</Td>
+                                        <Td>{dateString}</Td>
                                         <Td>{dayOfWeek}</Td>
-                                        <Td>{val.time}</Td>
+                                        <Td>{timeString}</Td>
                                     </Tr>
                                 )
                             })}
@@ -172,8 +173,8 @@ function HomePage() {
                     </PunchesList> */}
                     <ButtonRow>
                         <ButtonHistory onClick={() => {
-                                navigate('/history')
-                            }}>
+                            navigate('/history')
+                        }}>
                             <FaTags size={16} color='#F98B47' />
                             <ButtonText>Ver todas</ButtonText>
                         </ButtonHistory>

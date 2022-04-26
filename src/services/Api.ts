@@ -40,6 +40,7 @@ authApi.interceptors.response.use(response => {
 clockApi.interceptors.request.use(
   async req => {
     let authToken: string | null = localStorage.getItem('sanconAuthToken') ? localStorage.getItem('sanconAuthToken') : null;
+    let tenant: string | null = localStorage.getItem('sanconAuthTenant') ? localStorage.getItem('sanconAuthTenant') : null;
 
     if (!authToken) {
       toast.error('Sua sessão expirou! Faça o login novamente');
@@ -54,7 +55,7 @@ clockApi.interceptors.request.use(
 
     if (user.iat > user.exp) {
 
-      const response = await axios.put(`${authBaseURL}/empresa_teste/api/token/refresh`, {
+      const response = await axios.put(`${authBaseURL}/` + tenant + `/api/token/refresh`, {
         oldToken: authToken
       });
 

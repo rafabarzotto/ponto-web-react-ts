@@ -106,7 +106,7 @@ const ContainerPunches = styled.div`
     padding: 1%;
     border: 1px solid rgba(11, 53, 73, 0.1);
     box-sizing: border-box;
-    border-radius: 32px;
+    border-radius: 8px;
 
     @media (min-width: 800px) {
         margin-left: 0px;

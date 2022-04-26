@@ -21,8 +21,8 @@ const ContainerForm = styled.div`
 `;
 
 const Text = styled.div`
-    color: #033549;
-    font-size: 36px;
+    color: #1D254E;
+    font-size: 44px;
     font-weight: bold;
 
     @media (max-width: 1024px) {
@@ -39,24 +39,27 @@ const Form = styled.form`
 
 
 const Input = styled.input`
-    height: 60px;
+    height: 56px;
     color: #333;
     border: 1px solid #dcdce6;
     border-radius: 8px;
     padding: 0 24px;
 
-    color: #636885;
-    background-color: #F4F4F4;
+    
+    /*background-color: #F4F4F4;*/
 
-    font-size: 20px;
+    font-size: 16px;
 
     &{
         margin-top: 16px;
     }
 
-    :focus{
-        color: #033549;
+    &:focus{
+        color: #1D254E;
+        border: 1px solid #959090;
     }
+
+
 
     @media (max-width: 1024px) {
         height: 40px;
@@ -71,7 +74,7 @@ const Button = styled.button`
     border-radius: 10px;
     border-width: 0;
 
-    background-color: #f0821a;
+    background-color: #F98B47;
     color: #FFFFFF;
     
     font-size: 24px;
@@ -79,7 +82,7 @@ const Button = styled.button`
 
     &:hover {
         cursor: pointer;
-        background-color: #033549;
+        background-color: #1D254E;
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
     }
     
@@ -101,7 +104,7 @@ const ContainerWelcome = styled.div`
     width: 800px;
     height: 100vh;
     
-    background-color: #033549;
+    background-color: #1D254E;
 
     @media (max-width: 1024px) {
         display: none !important;
@@ -110,14 +113,25 @@ const ContainerWelcome = styled.div`
 
 
 const TitleWelcome = styled.div`
+
+    display: flex;
+    flex-direction: column;
+
     font-size: 48px;
     color: #FFFFFF;
     font-weight: bold;
     margin-left: 40px;
-    margin-top: 200px;
+    margin-top: 180px;
+
+    span {
+        margin-top: 8px;
+    }
 `;
 
 const TextWelcome = styled.div`
+    display: flex;
+    flex-direction: column;
+
     font-size: 32px;
     color: #8C8C99;
     margin-left: 40px;
@@ -125,16 +139,23 @@ const TextWelcome = styled.div`
 `;
 
 const ImageLogin = styled.img`
-    display: flex;
-
     width: 590px;
     height: 550px;
 
     margin-left: -60px;
-    margin-top: 50px;
-    
+    margin-top: 40px;
+`;
+
+const ImageLogo = styled.img`
+    width: 40px;
+    height: 40px;
+
+    margin: 50px;
+    position: absolute;
 `;
 
 
 
-export {Container, ContainerForm, ContainerWelcome, ImageLogin, TextWelcome, TitleWelcome, Text, Input, Form, Button};
+
+
+export {Container, ContainerForm, ContainerWelcome, ImageLogin, TextWelcome, TitleWelcome, Text, Input, Form, Button, ImageLogo};
